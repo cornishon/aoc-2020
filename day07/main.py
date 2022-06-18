@@ -1,6 +1,6 @@
 
 from dataclasses import dataclass
-
+from collections import deque
 
 @dataclass
 class Bag:
@@ -37,11 +37,11 @@ def find_containers(rules: dict[str, list[Bag]], bag_color: str) -> list[Bag]:
 
 def count_bags_containing(bag_color):
     visited = set()
-    queue = []
+    queue = deque()
 
     queue.append(bag_color)
     while len(queue) > 0:
-        next_bag = queue.pop()
+        next_bag = queue.popleft()
         if next_bag not in visited:
             for container in find_containers(bag_rules, next_bag):
                 queue.append(container)
